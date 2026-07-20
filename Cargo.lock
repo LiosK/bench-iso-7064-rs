@@ -52,7 +52,8 @@ dependencies = [
 [[package]]
 name = "iso-7064"
 version = "0.1.2"
-source = "git+https://github.com/LiosK/iso-7064-rs#40fce9ecee7748e5c72a9a28d9a4e07d77062230"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "591c36ffac98df346b6416b5384ba116f1aca6ee510fdec0cff7943c3040ec67"
 
 [[package]]
 name = "iso_iec_7064"
