@@ -1,0 +1,13 @@
+[package]
+name = "bench-iso-7064"
+version = "0.1.0"
+edition = "2024"
+publish = false
+exclude = ["/.github/"]
+
+[dependencies]
+
+[dev-dependencies]
+iso-7064 = { git = "https://github.com/LiosK/iso-7064-rs" }
+iso_iec_7064 = "0.1.1"
+rand = "0.10.2"
