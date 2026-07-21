@@ -56,6 +56,18 @@ macro_rules! gen_benches {
             }
 
             #[bench]
+            fn bench_iso_7064_over_bytes(b: &mut test::Bencher) {
+                let list = &*$charset;
+                b.iter(|| {
+                    list.iter().fold(false, |acc, s| {
+                        acc ^ iso_7064::$type_x
+                            .verify_from_chars(s.bytes().map(char::from))
+                            .unwrap_or(false)
+                    })
+                });
+            }
+
+            #[bench]
             fn bench_iso_iec_7064(b: &mut test::Bencher) {
                 let list = &*$charset;
                 b.iter(|| {
