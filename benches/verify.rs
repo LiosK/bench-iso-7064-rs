@@ -68,11 +68,11 @@ macro_rules! gen_benches {
     };
 }
 
-gen_benches!(mod11_2, NUMERIC, MOD11_2, MOD_11_2);
-gen_benches!(mod37_2, ALPHANUMERIC, MOD37_2, MOD_37_2);
-gen_benches!(mod97_10, NUMERIC, MOD97_10, MOD_97_10);
-gen_benches!(mod661_26, ALPHABETIC, MOD661_26, MOD_661_26);
-gen_benches!(mod1271_36, ALPHANUMERIC, MOD1271_36, MOD_1271_36);
-gen_benches!(mod11_10, NUMERIC, MOD11_10, MOD_11_10);
-gen_benches!(mod27_26, ALPHABETIC, MOD27_26, MOD_27_26);
-gen_benches!(mod37_36, ALPHANUMERIC, MOD37_36, MOD_37_36);
+gen_benches!(pure1_mod11_2, NUMERIC, MOD11_2, MOD_11_2);
+gen_benches!(pure1_mod37_2, ALPHANUMERIC, MOD37_2, MOD_37_2);
+gen_benches!(pure2_mod97_10, NUMERIC, MOD97_10, MOD_97_10);
+gen_benches!(pure2_mod661_26, ALPHABETIC, MOD661_26, MOD_661_26);
+gen_benches!(pure2_mod1271_36, ALPHANUMERIC, MOD1271_36, MOD_1271_36);
+gen_benches!(hybrid_mod11_10, NUMERIC, MOD11_10, MOD_11_10);
+gen_benches!(hybrid_mod27_26, ALPHABETIC, MOD27_26, MOD_27_26);
+gen_benches!(hybrid_mod37_36, ALPHANUMERIC, MOD37_36, MOD_37_36);
