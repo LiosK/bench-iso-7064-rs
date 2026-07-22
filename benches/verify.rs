@@ -26,18 +26,33 @@ fn gen_samples(charset: &[u8]) -> Vec<String> {
 mod numeric {
     use super::*;
     pub static SAMPLES: LazyLock<Vec<String>> = LazyLock::new(|| gen_samples(b"0123456789"));
+    pub fn decode_byte(b: u8) -> u32 {
+        // TODO 'X'
+        b.wrapping_sub(b'0') as u32
+    }
 }
 
 mod alphabetic {
     use super::*;
     pub static SAMPLES: LazyLock<Vec<String>> =
         LazyLock::new(|| gen_samples(b"ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+    pub fn decode_byte(b: u8) -> u32 {
+        b.wrapping_sub(b'A') as u32
+    }
 }
 
 mod alphanumeric {
     use super::*;
     pub static SAMPLES: LazyLock<Vec<String>> =
         LazyLock::new(|| gen_samples(b"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+    pub fn decode_byte(b: u8) -> u32 {
+        // TODO '*'
+        match b {
+            ..=b'9' => b.wrapping_sub(b'0') as u32,
+            b'A'.. => b.wrapping_sub(b'A' - 10) as u32,
+            _ => u32::MAX,
+        }
+    }
 }
 
 macro_rules! gen_benches {
@@ -51,7 +66,11 @@ macro_rules! gen_benches {
                 let samples = &*$charset::SAMPLES;
                 for s in samples {
                     let x = iso_7064::$type_x.verify(s).unwrap_or(false);
+                    let x_b = iso_7064::$type_x
+                        .verify_from_values(s.bytes().map($charset::decode_byte))
+                        .unwrap_or(false);
                     let y = iso_iec_7064::$type_y.validate_string(s);
+                    assert_eq!(x, x_b);
                     assert_eq!(x, y);
                 }
             }
@@ -61,7 +80,9 @@ macro_rules! gen_benches {
                 let samples = &*$charset::SAMPLES;
                 b.iter(|| {
                     samples.iter().fold(false, |acc, s| {
-                        acc ^ iso_7064::$type_x.verify(s).unwrap_or(false)
+                        acc ^ iso_7064::$type_x
+                            .verify_from_values(s.bytes().map($charset::decode_byte))
+                            .unwrap_or(false)
                     })
                 });
             }
