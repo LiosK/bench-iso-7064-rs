@@ -10,4 +10,4 @@ exclude = ["/.github/"]
 [dev-dependencies]
 iso-7064 = { git = "https://github.com/LiosK/iso-7064-rs" }
 iso_iec_7064 = "0.1.1"
-rand = "0.10.2"
+rand = { version = "0.10", default-features = false, features = ["sys_rng"] }

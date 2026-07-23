@@ -5,8 +5,8 @@ extern crate test;
 use std::sync::LazyLock;
 
 fn gen_samples(charset: &[u8]) -> Vec<String> {
-    use rand::RngExt as _;
-    let mut rng = rand::rng();
+    use rand::{RngExt as _, rngs::SmallRng};
+    let mut rng: SmallRng = rand::make_rng();
 
     let mut xs = Vec::new();
     for _ in 0..8 {
